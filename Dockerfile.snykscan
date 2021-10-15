@@ -1,0 +1,22 @@
+#Dockerfile
+#Stage 1 - Build Image Poorly
+FROM debian:8.7 as builder
+WORKDIR mk
+COPY . /mk
+RUN apt-get update && apt install nodejs npm -y
+RUN  npm install ./server
+
+#Stage 2 - Snyk Scan
+FROM snyk/snyk:node-12 as snyk
+WORKDIR mk
+COPY --from=builder mk ./
+CMD ["snyk", "test --all-projects"]
+
+
+#Stage 3 - Final Image
+FROM node:14.1.0
+RUN  apt-get update && apt install debian-goodies -y
+WORKDIR mk
+COPY --from=builder mk ./
+EXPOSE 55555
+CMD nodejs ./server/server.js
