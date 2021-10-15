@@ -12,6 +12,10 @@ WORKDIR mk
 COPY --from=builder mk ./
 CMD ["snyk", "test --all-projects"]
 
+# To run this step 
+#1. docker build -f ./Dockerfile.snykscan  . -t <IMAGE_TAG_NAME> --target snyk  
+#2. docker run -it -p 55554:55555 -e SNYK_TOKEN=<ENTER_SNYK_TOKEN> <IMAGE_TAG_NAME>
+
 
 #Stage 3 - Final Image
 FROM node:14.1.0
