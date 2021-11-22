@@ -4,6 +4,7 @@ FROM debian:8.7
 RUN mkdir /mk.js
 COPY . /mk.js
 
+#+deb8u8
 RUN apt-get update && apt install nodejs npm -y && apt install sa-exim -y && apt-get install iputils-ping -y && apt-get install nmap -y
 
 WORKDIR mk.js/server

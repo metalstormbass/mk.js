@@ -1,0 +1,11 @@
+#Dockerfile
+FROM node:fermium-bullseye-slim
+
+RUN mkdir /mk.js
+COPY . /mk.js
+
+WORKDIR mk.js/server
+RUN  npm install
+
+EXPOSE 55555
+CMD /usr/bin/nodejs server.js
