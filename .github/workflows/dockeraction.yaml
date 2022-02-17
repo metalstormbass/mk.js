@@ -4,6 +4,10 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v1
+
     - name: Build Image
       run: docker build . -t miketestimage:latest
     - name: Run Snyk to check Docker image for vulnerabilities
